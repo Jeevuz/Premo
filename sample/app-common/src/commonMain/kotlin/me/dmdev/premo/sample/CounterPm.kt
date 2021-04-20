@@ -29,7 +29,7 @@ import kotlinx.serialization.Serializable
 import me.dmdev.premo.*
 
 class CounterPm(
-    private val maxCount: Int,
+    private val maxCount: Int, // Cтранно что мы не Descriprion сюда передаем, ведь именно он содержит maxCount. Появляется источник недопонимания, разные имена и тп.
     config: PmConfig
 ) : PresentationModel(config) {
 

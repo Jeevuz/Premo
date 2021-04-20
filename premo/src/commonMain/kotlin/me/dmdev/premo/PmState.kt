@@ -28,6 +28,10 @@ import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.Serializable
 
 @Serializable
+// Может быть лучше где-то мапить чтобы не были главные классы либы с аннотацией про сериализацию?
+// Плюс это может помочь структурировать так, чтобы вся работа с сохранением была собрана четко.
+// Тот же tag не представляю себе что такое в разрезе состояния.
+// и мапа состояний в состоянии смущает.
 class PmState(
     val tag: String,
     val routerState: List<BackStackEntryState>,

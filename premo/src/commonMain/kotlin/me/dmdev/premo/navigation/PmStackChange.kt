@@ -27,8 +27,9 @@ package me.dmdev.premo.navigation
 import me.dmdev.premo.PresentationModel
 
 sealed class PmStackChange {
+    // Одинаковый значения enterPm и exitPm тут путают. Не совсем улавливается что есть что, тк пуш и pop противоположные операции
     class Push(val enterPm: PresentationModel, val exitPm: PresentationModel) : PmStackChange()
     class Pop(val enterPm: PresentationModel, val exitPm: PresentationModel) : PmStackChange()
-    class Set(val pm: PresentationModel) : PmStackChange()
+    class Set(val pm: PresentationModel) : PmStackChange() // В чем отличие set от push?
     object Empty : PmStackChange()
 }

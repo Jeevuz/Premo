@@ -32,13 +32,16 @@ import me.dmdev.premo.LifecycleEvent.*
  *
  *  @see PmActivityDelegat
  */
+// Может выкинуть и добавить если реально понадобится? Ведь для компоуза ток затачиемся
 class CommonDelegate<PM : PresentationModel>(
     val pmTag: String,
     val pmProvider: () -> PM
+    // ^Вроде бы уже есть понятие фабрики,
+    // а тут вдруг то же самое но лямбдой.. Нельзя ли объединить понятия?
 ) {
 
     @Suppress("UNCHECKED_CAST")
-    val presentationModel: PM = PmStore.getPm(pmTag) as? PM ?: pmProvider().also { pm ->
+    val presentationModel: PM = PmStore.getPm(pmTag) as? PM ?: pmProvider().also { pm -> // Плак-плак поезд. Отформатить бы, а то читать сложно.
         PmStore.putPm(pmTag, pm)
     }
 

@@ -51,6 +51,9 @@ abstract class PmActivity<PM : PresentationModel>(
         )
     }
 
+    // Сейчас получается, что есть только одно место где это нужно. И оно же в активити самой, чтобы в контент сунуть. При этом navigation() тоже там рядом и тп.
+    // Может быть вообще не показывать наружу пмку в активити а сделать обертку для метода установки контента где и нав и пм уже есть?
+    // Мысли пока, но странно, что мы делаем для такого кейса мелкого этот метод. Может есть кейсы еще?
     fun getPresentationModel(): PM {
         return delegate.presentationModel
             ?: throw IllegalStateException("Presentation Model has not been initialized yet, call this method after onCreate.")

@@ -65,6 +65,8 @@ fun dialogScreen(pm: DialogPm) {
                     Text("Show dialog for result")
                 }
 
+                // Очень сильно триггерит то что тут bind() оказывается в нутри if.
+                // Начинаешь париться что тут происходит. Лучше с именем подумать
                 if (pm.alertPm.isShown.bind()) {
                     alert(pm.alertPm)
                 }

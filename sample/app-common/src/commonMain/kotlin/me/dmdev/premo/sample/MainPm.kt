@@ -40,8 +40,15 @@ class MainPm(config: PmConfig) : PresentationModel(config) {
     object Description : Saveable
 
     private val router = Router(SamplesPm.Description)
+    // мне кажется было бы прикольно юзать как-то так:
+    // val container = Container(SamplesPm.Description)
+    // и снаружи было бы pm.container.childrenStackChanges
+    // или pm.container.currentChildPm
+    // а обычные видны бы были как
+    // pm.someChildPm.someState
+    // Нравится, что это даёт понять, что тут у этой пмки есть какой-то контейнер чайлдов и отдельно просто чайлды.
 
-    val currentPm = State(null) {
+    val currentPm = State(null) { // Не юзается? Но сделано отдельно. Повод для объединения внутрь "рутера или что там"
         router.pmStack.flow().map { it.lastOrNull() }
     }
 

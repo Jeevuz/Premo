@@ -29,6 +29,8 @@ interface Saver<T, S : Saveable> {
     fun restore(saveable: S): T
 }
 
+// Интересно, что PmStateSaver не тут
+
 object SaveableSaver: Saver<Saveable, Saveable> {
     override fun save(value: Saveable): Saveable {
         return value

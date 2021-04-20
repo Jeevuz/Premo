@@ -45,7 +45,10 @@ class MainActivity : PmActivity<MainPm>(R.layout.activity_main) {
 
     @Composable
     fun mainScreen(mainPm: MainPm) {
-        navigation(mainPm.pmStackChanges.bind(PmStackChange.Empty)) { pm ->
+        // Не очень нравится что эта функция в активити. Ее бы как-то завернуть, чтобы написать рутер.дайКонтент()
+        // И какую-то связь пмок с скринами. Может через дескрипшны в мапе или еще как. Чтобы в активити меньше кода.
+        // Навигация же в пмках, тут только привязка.
+        navigation(mainPm.pmStackChanges.bind(PmStackChange.Empty)) { pm -> // bind(PmStackChange.Empty) - странно смотрится
             when (pm) {
                 is SamplesPm -> samplesScreen(pm)
                 is CounterPm -> counterScreen(pm)
@@ -58,14 +61,20 @@ class MainActivity : PmActivity<MainPm>(R.layout.activity_main) {
         }
     }
 
+    // Кажется очень незначительным. Типа "разве нельзя как-то узнать что тут этот дескрипшн, если тип <MainPm> указан? Бла-бла"
+    // Особенно с учетом того, что потом используется недалеко тут getPresentationModel()
     override fun providePmDescription(): Saveable {
         return MainPm.Description
     }
 
+    // Может в конструкторе активити это выглядело бы лучше? Или вообще где-то еще.
+    // Активити тут просто стартовая точка и ей приходится это все подставлять,
+    // но может это можно унести в тот же DI или отдельное создание?
     override fun providePmFactory(): PmFactory {
         return MainPmFactory()
     }
 
+    // С этим отдельно надо подумать, что это нужно подставлять тут в активити. Вроде будто бы активити тут вообще не при чем кажется.
     override fun providePmStateSaver(): PmStateSaver {
         return JsonPmStateSaver()
     }

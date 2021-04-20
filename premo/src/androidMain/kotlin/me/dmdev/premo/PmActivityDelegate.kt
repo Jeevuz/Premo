@@ -39,6 +39,7 @@ import java.util.*
  * Users of this class must forward all the lifecycle methods from the containing Activity
  * to the corresponding ones in this class.
  */
+// Думаю стоит попробовать переписать его на LifecycleListener или как там, чтобы в активити не надо было методы дергать.
 class PmActivityDelegate<PM : PresentationModel>(
     private val pmActivity: Activity,
     private val pmStateSaver: PmStateSaver,

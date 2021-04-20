@@ -45,10 +45,11 @@ class PmRouter internal constructor(
             val oldTopPm = oldPmStack.lastOrNull()
             val newTopPm = newPmStack.lastOrNull()
 
+            // Причесать бы с отдельными именованными методами хотелось, а то сложно понимается
             val pmStackChange = if (newTopPm != null && oldTopPm != null) {
                 when {
                     oldTopPm === newTopPm -> {
-                        PmStackChange.Set(newTopPm)
+                        PmStackChange.Set(newTopPm) // А не может ли это разруливать push? в чем отличие, что надо именно set?
                     }
                     oldPmStack.any { it === newTopPm } -> {
                         PmStackChange.Pop(newTopPm, oldTopPm)

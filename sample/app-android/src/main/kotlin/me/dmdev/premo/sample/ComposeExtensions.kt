@@ -35,6 +35,7 @@ import me.dmdev.premo.State
 import me.dmdev.premo.navigation.PmStackChange
 
 @Composable
+// Назвал бы observedValue, чтобы проще понимать суть компоуза, что вот будет велью, но компоуз будет следить за значением и рекомпоузить
 fun <T> State<T>.bind(): T {
     return flow().collectAsState().value
 }
@@ -49,18 +50,22 @@ fun <T> Flow<T>.bind(initialValue: T): T {
     return collectAsState(initialValue).value
 }
 
+// Кажется это надо будет унести из семплов в либу?
 @Composable
 fun navigation(
     pmStackChange: PmStackChange,
     modifier: Modifier = Modifier,
     content: @Composable (PresentationModel?) -> Unit
+    // ^Выходит, что именно эта функция передает пмки в экраны.
+    // Имхо не оч хорошо, тк она открыта для изменения клиентом и получается уязвима для легкой поломки.
 ) {
 
     val stateHolder = rememberSaveableStateHolder()
 
+    // Тут 2 дела склеены - доставание пмки и удаление старого сохраненного стейта. Возможно разделить будет нагляднее и проще в поддержке .
     val pm = when (pmStackChange) {
         is PmStackChange.Push -> {
-            stateHolder.removeState(pmStackChange.enterPm.tag)
+            stateHolder.removeState(pmStackChange.enterPm.tag) // We push new, remove old just in case
             pmStackChange.enterPm
         }
         is PmStackChange.Pop -> {

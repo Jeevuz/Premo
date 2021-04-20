@@ -26,10 +26,15 @@ package me.dmdev.premo
 
 import me.dmdev.premo.navigation.PmFactory
 
+// Обсуждали и не пришли к единому мнению. Я бы хотел видеть Description в конструкторе PM
+// Какие надо для этого решить проблемы не знаю пока. Было бы следать поля эти же или класть внутрь дескрипшна config
 class PmConfig(
     val tag: String,
     val parent: PresentationModel?,
     val state: PmState?,
     val factory: PmFactory,
     val description: Saveable
+    // ^А почему именно сам Description должен быть Saveable, а не его содержимое?
+    // Может там лист сейваблов чтобы был или что-то такое.
+    // Все время странно для меня что описание должно быть Сохраняемым, а не Описанием
 )
